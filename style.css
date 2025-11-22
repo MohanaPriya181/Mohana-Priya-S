@@ -49,22 +49,24 @@ h4 {
     font-size: 0.9rem;
     box-shadow: 0px 3px 8px rgba(0,0,0,0.15);
     transition: background 0.3s ease, transform 0.2s ease;
-    z-index: 1000;
+    z-index: 900; /* below header/nav dropdown */
 }
 .resume-btn:hover {
     background-color: #00796b;
     transform: translateY(-1px);
 }
 
-/* Navigation */
+/* Navigation wrapper */
 header {
     background: white;
     padding: 15px 50px;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
 }
+
+/* Navigation */
 .logo {
     font-size: 1.5rem;
     color: #009688;
@@ -92,6 +94,23 @@ nav {
     color: #009688;
 }
 
+/* Hamburger (hidden on desktop by default) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 3px;
+    border-radius: 999px;
+    background: #333;
+    margin: 4px 0;
+}
+
 /* Hero Section */
 .hero {
     display: flex;
@@ -116,6 +135,8 @@ nav {
     font-size: 1.1rem;
     margin-bottom: 12px;
 }
+/* <em> uses default style inside h3 – no extra rules */
+
 .hero-text p {
     margin: 10px 0 15px;
     font-size: 0.98rem;
@@ -201,6 +222,7 @@ nav {
     padding-bottom: 5px;
 }
 
+/* Center content in all info cards (Education + Certifications) */
 .info-card {
     background: #f0fafa;
     padding: 12px 15px;
@@ -209,11 +231,14 @@ nav {
     border-radius: 8px;
     box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: left;
+    text-align: center;
     font-size: 0.95rem;
 }
 .info-card h4 {
     margin-bottom: 4px;
+}
+.info-card i {
+    margin-left: 6px;
 }
 .info-card:hover {
     transform: translateY(-4px);
@@ -297,7 +322,7 @@ nav {
 
 /* Projects Section */
 .projects {
-    padding: 60px 10%;
+    padding: 40px 10%;
     background-color: #f5fffc;
     text-align: center;
 }
@@ -310,7 +335,7 @@ nav {
 .projects-subtitle {
     text-align: center;
     max-width: 600px;
-    margin: 0 auto 30px;
+    margin: 0 auto 20px;
     font-size: 0.95rem;
     color: #555;
 }
@@ -330,20 +355,20 @@ nav {
 
 .project-card {
     min-width: 100%;
-    padding: 30px;
+    padding: 22px 20px;
     background: #ffffff;
     border-radius: 18px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 18px;
 }
 
 /* 16:9 Image */
 .project-image {
     width: 100%;
-    max-width: 900px;
+    max-width: 780px;
     aspect-ratio: 16 / 9;
     border-radius: 14px;
     overflow: hidden;
@@ -359,21 +384,21 @@ nav {
 
 /* Project Content */
 .project-content {
-    width: 90%;
+    width: 85%;
     text-align: center;
 }
 
 .project-content h3 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
     color: #004d40;
 }
 
 .project-content p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.65;
     color: #444;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 /* Tags */
@@ -582,8 +607,7 @@ footer {
   display: none;
   position: fixed;
   z-index: 1000;
-  left: 0;
-  top: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.7);
@@ -658,9 +682,64 @@ footer {
         padding: 10px 20px;
     }
 
+    nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+        z-index: 1100;
+    }
+
+    /* Floating dropdown under hamburger */
+    .nav-links {
+        position: absolute;
+        top: 120%;
+        right: 0;
+        width: 180px;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 10px 0;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        z-index: 1050;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 0;
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 6px 14px;
+        font-size: 0.9rem;
+    }
+
+    /* Move resume button slightly higher + smaller on mobile */
+    .resume-btn {
+        top: 70px;      /* moved up from 130px */
+        right: 16px;
+        padding: 8px 14px;
+        font-size: 0.82rem;
+    }
+
     .hero {
         padding: 40px 8%;
         text-align: center;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .hero-text {
@@ -682,36 +761,22 @@ footer {
     .experience-container {
         gap: 20px;
     }
-}
-/* ==== Compact Projects Section Tweaks ==== */
 
-.projects {
-    padding: 40px 10%;              /* was 60px 10% */
-}
+    /* Modal more compact on mobile */
+    .modal-content {
+        width: 94%;
+        max-width: 94%;
+        border-radius: 10px;
+    }
 
-.projects-subtitle {
-    margin-bottom: 20px;            /* was 30px */
-}
+    .modal-body iframe,
+    .modal-body img {
+        height: 60vh;
+    }
 
-.project-card {
-    padding: 22px 20px;             /* was 30px */
-    gap: 18px;                      /* was 25px */
-}
-
-.project-image {
-    max-width: 780px;               /* was 900px */
-}
-
-.project-content {
-    width: 85%;                     /* was 90% */
-}
-
-.project-content h3 {
-    font-size: 1.3rem;              /* was 1.4rem */
-    margin-bottom: 8px;
-}
-
-.project-content p {
-    font-size: 0.9rem;              /* was 0.95rem */
-    margin-bottom: 12px;            /* was 15px */
+    /* Contact buttons smaller on mobile */
+    .contact-link {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+    }
 }
