@@ -771,9 +771,11 @@ footer {
 
     .modal-body iframe,
     .modal-body img {
-        height: 60vh;
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        object-fit: contain;
     }
-
     /* Contact buttons smaller on mobile */
     .contact-link {
         padding: 8px 14px;
